@@ -45,7 +45,7 @@
                     <div class="table-responsive">
                         <table class="table  text-nowrap  table-striped table-hover table-bordered" id="example2">
                             <thead>
-                                <tr style="transition: none !important; transform: none !important;">
+                                <tr>
                                     <th class="wd-15p border-bottom-0">Nome completo</th>
                                     <th class="wd-15p border-bottom-0">Sexo</th>
                                     <th class="wd-15p border-bottom-0">Data de nascimento</th>
@@ -86,7 +86,7 @@
                             </thead>
                             <tbody>
                                 @foreach ($dados as $items )
-                                <tr>
+                                <tr style="transition: none !important; transform: none !important;">
                                     <td class="nome_completo">{{ $items->nome_completo}}</td>
                                     <td class="sexo">{{ $items->sexo}}</td>
                                     <td class="data_nascimento">{{ Carbon\Carbon::parse($items->data_nascimento)->format('d-m-Y')}}</td>

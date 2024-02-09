@@ -65,7 +65,8 @@
                                         <div aria-label="Basic example" class="btn-group float-right" role="group">
                                             <a href="{{ url('form/atribuicao/ver',['nome' => $items->nome_funcionario, 'id_cargo' => $items->cargo_funcionario])}}" class="btn btn-info btn-sm"> <i class="zmdi zmdi-eye"></i>&nbsp;Ver</a>
                                             {{-- <a href="{{ url('form/atribuicao/edit',['id_desempenho' => $items->id])}}" class="btn btn-primary btn-sm"> <i class="zmdi zmdi-edit"></i>&nbsp;Editar</a> --}}
-                                            <a href="{{ url('form/atribuicao/excluir',['id_desempenho' => $items->id])}}" class="btn btn-secondary btn-sm" onclick="return confirm('Deseja excluir esta avaliação?')"><i class="zmdi zmdi-delete"></i>&nbsp;Excluir</a>
+                                            <a href="{{ url('form/atribuicao/excluir',['id_desempenho' => $items->id])}}" class="btn btn-secondary btn-sm" onclick="return confirm('Deseja excluir esta atribuição de objectivos?')"><i class="zmdi zmdi-delete"></i>&nbsp;Excluir</a>
+
                                         </div>
 
                                     </td>

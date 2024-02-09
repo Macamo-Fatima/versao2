@@ -26,9 +26,9 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
 
 //------------------------------------------Routes para painel do adminiistrador --------------------------//
 Route::group(['prefix' => 'admin', 'middleware' => ['isAdmin', 'auth', 'PreventBackHistory']], function () {
-    Route::get('admin/painel', [App\Http\Controllers\AdminController::class, 'index'])->name('admin.painel');
-    Route::get('admin/perfil', [App\Http\Controllers\AdminController::class, 'perfil'])->name('admin.perfil');
-    Route::get('admin/configuracoes', [App\Http\Controllers\AdminController::class, 'configuracoes'])->name('admin.configuracoes');
+    Route::get('painel', [App\Http\Controllers\AdminController::class, 'index'])->name('admin.painel');
+    Route::get('perfil', [App\Http\Controllers\AdminController::class, 'perfil'])->name('admin.perfil');
+    Route::get('configuracoes', [App\Http\Controllers\AdminController::class, 'configuracoes'])->name('admin.configuracoes');
     //Routes para usuário
     Route::get('listar/usuario', [App\Http\Controllers\UserManagementController::class, 'index'])->name('admin/listar/usuario');
     Route::get('novo/usuario', [App\Http\Controllers\UserManagementController::class, 'novoUsuario'])->name('admin/novo/usuario');

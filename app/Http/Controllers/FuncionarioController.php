@@ -98,7 +98,10 @@ class FuncionarioController extends Controller
         $departamentosList = DB::table('departamentos')->get();
         $tipoContratosList = DB::table('tipo_contratos')->get();
         $turnosList = DB::table('turnos')->get();
-        return view('funcionarios.create', compact('cargosList', 'departamentosList', 'tipoContratosList', 'turnosList'));
+        $colaboradoresNomesList = DB::table('funcionarios')
+        ->select('nome_completo')
+        ->get();
+        return view('funcionarios.create', compact('cargosList', 'departamentosList', 'tipoContratosList', 'turnosList', 'colaboradoresNomesList'));
     }
 
 
@@ -248,6 +251,9 @@ class FuncionarioController extends Controller
         $departamentosList = DB::table('departamentos')->get();
         $tipoContratosList = DB::table('tipo_contratos')->get();
         $turnosList = DB::table('turnos')->get();
+        $colaboradoresNomesList = DB::table('funcionarios')
+        ->select('nome_completo')
+        ->get();
         $dados = DB::table('funcionarios')
             ->join('grauacademico', 'funcionarios.id', '=', 'grauacademico.id_funcionario')
             ->join('especificacoes', 'funcionarios.id', '=', 'especificacoes.id_funcionario')
@@ -265,7 +271,7 @@ class FuncionarioController extends Controller
             ->get();
         //  dd($cargoDados);
 
-        return view('funcionarios.edit', compact('cargosList', 'departamentosList', 'tipoContratosList', 'dados', 'turnosList', 'cargoDados'));
+        return view('funcionarios.edit', compact('cargosList', 'departamentosList', 'tipoContratosList', 'dados', 'turnosList', 'cargoDados', 'colaboradoresNomesList'));
 
         // dd($funcionario_id, $grau_academico_id, $especificacao_id);
     }
@@ -277,7 +283,9 @@ class FuncionarioController extends Controller
         $departamentosList = DB::table('departamentos')->get();
         $tipoContratosList = DB::table('tipo_contratos')->get();
         $turnosList = DB::table('turnos')->get();
-
+        $colaboradoresNomesList = DB::table('funcionarios')
+        ->select('nome_completo')
+        ->get();
         $dados = DB::table('cargos')
             ->join('funcionarios', 'funcionarios.funcao', '=', 'cargos.id')
             ->select('funcionarios.*', 'cargos.nome_cargo', 'cargos.grupo_funcional')
@@ -285,7 +293,7 @@ class FuncionarioController extends Controller
             ->where('funcionarios.id', '=', $funcionario_id)
             ->get();
 
-        return view('funcionarios.simples_funcionario', compact('cargosList', 'departamentosList', 'tipoContratosList',  'turnosList', 'dados'));
+        return view('funcionarios.simples_funcionario', compact('cargosList', 'departamentosList', 'tipoContratosList',  'turnosList', 'dados', 'colaboradoresNomesList'));
 
         // dd($funcionario_id, $grau_academico_id, $especificacao_id);
     }
@@ -296,6 +304,9 @@ class FuncionarioController extends Controller
         $departamentosList = DB::table('departamentos')->get();
         $tipoContratosList = DB::table('tipo_contratos')->get();
         $turnosList = DB::table('turnos')->get();
+        $colaboradoresNomesList = DB::table('funcionarios')
+        ->select('nome_completo')
+        ->get();
         $dados = DB::table('funcionarios')
             ->join('grauacademico', 'funcionarios.id', '=', 'grauacademico.id_funcionario')
             ->join('especificacoes', 'funcionarios.id', '=', 'especificacoes.id_funcionario')
@@ -312,7 +323,7 @@ class FuncionarioController extends Controller
             ->where('funcionarios.id', '=', $funcionario_id)
             ->get();
 
-        return view('funcionarios.editgrid', compact('cargosList', 'departamentosList', 'tipoContratosList', 'dados', 'turnosList', 'cargoDados'));
+        return view('funcionarios.editgrid', compact('cargosList', 'departamentosList', 'tipoContratosList', 'dados', 'turnosList','cargoDados', 'colaboradoresNomesList'));
     }
 
     public function updateRecord(Request $request)

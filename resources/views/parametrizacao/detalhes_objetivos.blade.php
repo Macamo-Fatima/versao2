@@ -53,55 +53,55 @@
 
                             <tbody>
                                 <tr class="small">
-                                    <td>Nome completo</td>
+                                    <td class="font-weight-bold">Nome completo</td>
                                     <td>{{$resultado[0]->nome_completo}}</td>
                                 </tr>
                                 <tr class="small">
-                                    <td>Data de nascimento</td>
+                                    <td class="font-weight-bold">Data de nascimento</td>
                                     <td>{{ Carbon\Carbon::parse($resultado[0]->data_nascimento)->format('d-m-Y')}}</td>                                 
                                 </tr>
 
                                 <tr class="small">
-                                    <td>Estado civil</td>
+                                    <td class="font-weight-bold">Estado civil</td>
                                     <td>{{ $resultado[0]->estado_civil}}</td>
                                 </tr>
                                 <tr class="small">
-                                    <td>Grupo funcional</td>
+                                    <td class="font-weight-bold">Grupo funcional</td>
                                     <td>{{ $resultado[0]->grupo_funcional}}</td>
                                 </tr>
                                 <tr class="small">
-                                    <td>Departamento / Área de integração</td>
+                                    <td class="font-weight-bold">Departamento / Área de integração</td>
                                     <td>{{ $resultado[0]->departamento}}</td>
                                 </tr>
                                 <tr class="small">
-                                    <td>Local de trabalho</td>
+                                    <td class="font-weight-bold">Local de trabalho</td>
                                     <td>{{ $resultado[0]->local_funcionario}}</td>
                                 </tr>
                                 <tr class="small">
-                                    <td>Reporte hierárquico</td>
+                                    <td class="font-weight-bold">Reporte hierárquico</td>
                                     <td>{{ $resultado[0]->reporte}}</td>
                                 </tr>
                                 <tr class="small">
-                                    <td>Missão</td>
+                                    <td class="font-weight-bold">Missão</td>
                                     <td>{{ $resultado[0]->missao_funcionario}}</td>
                                 </tr>
                                 <tr class="small">
-                                    <td>Contato profissional</td>
+                                    <td class="font-weight-bold">Contato profissional</td>
                                     <td>{{ $resultado[0]->contato_prof}}</td>
                                 </tr>
 
                                 <tr class="small">
-                                    <td>Email profissional</td>
+                                    <td class="font-weight-bold">Email profissional</td>
                                     <td>{{ $resultado[0]->email_prof}}</td>
                                 </tr>
 
                                 <tr class="small">
-                                    <td>Tipo contrato</td>
+                                    <td class="font-weight-bold">Tipo contrato</td>
                                     <td>{{ $resultado[0]->tipo_contrato}}</td>
                                 </tr>
 
                                 <tr class="small">
-                                    <td>Turno</td>
+                                    <td class="font-weight-bold">Turno</td>
                                     <td>{{ $resultado[0]->turno}}</td>
                                 </tr>
 
@@ -117,7 +117,7 @@
                                     <td class="fw-bolder fs-12"><br></td>
                                 </tr>
                                 <tr class="small">
-                                    <td>Lista de objetivos</td>
+                                    <td class="font-weight-bold">Lista de objetivos</td>
                                     <td>
                                         @foreach ($conjuntoObjetivos as $items)
                                         <ul>

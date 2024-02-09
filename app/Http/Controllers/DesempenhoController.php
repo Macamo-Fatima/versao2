@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Competence;
 use App\Models\Desempenho;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\CompetenceGroup;
+use App\Models\Proficience;
 use Brian2694\Toastr\Facades\Toastr;
 
 class DesempenhoController extends Controller
@@ -54,6 +56,27 @@ class DesempenhoController extends Controller
                 ]);
             }
 
+            // Recupere todas as competências e seus níveis de proficiência enviados pelo formulário           
+            $competencias = $request->input('competencias');
+            // Itere sobre as competências e seus valores de nível de proficiência
+            foreach ($competencias as $competencia) {
+                // Construa o nome do campo de nível de proficiência com base no nome da competência
+                $campoProficiencia = 'proficiencia_' . str_replace(' ', '_', $competencia);
+                // Verifique se o campo de nível de proficiência está presente nos dados enviados
+                if ($request->has($campoProficiencia)) {
+                    // Se sim, recupere o valor do nível de proficiência
+                    $nivelProficiencia = $request->input($campoProficiencia);
+                    // Crie uma nova instância do modelo Competencia
+                    $novaCompetencia = new Proficience();
+                    // Defina os valores dos atributos da competência
+                    $novaCompetencia->nome_do_cargo = $cargoId;
+                    $novaCompetencia->id_da_avaliacao = $lastInsertedId;
+                    $novaCompetencia->nome_da_competencia = $competencia;
+                    $novaCompetencia->nivel_proficiencia = $nivelProficiencia;
+                    // Salve a competência no banco de dados
+                    $novaCompetencia->save();
+                }
+            }
             DB::commit();
             Toastr::success('Atribuição de competências criada :)', 'Sucesso');
             return redirect()->back();
@@ -62,13 +85,9 @@ class DesempenhoController extends Controller
             Toastr::error('Erro ao criar atribuição de competências :)', 'Erro');
             return redirect()->back();
         }
-
-
-
-
-        // Dump and Die para visualizar os objetivos selecionados
-        // $objetivos = $request->input('competencias');
-        //  dd($objetivos);
+        //     // Dump and Die para visualizar os objetivos selecionados
+        //     // $objetivos = $request->input('competencias');
+        //     //  dd($objetivos);
     }
 
 
@@ -121,7 +140,27 @@ class DesempenhoController extends Controller
             ->distinct('competence_groups.tipo_competencia')
             ->get();
 
-        return view('parametrizacao.detalhes_competencias', compact('resultado', 'conjuntoCompetencias'));
+
+        $resultadoCapturado = DB::table('desempenhos')
+            ->select(
+                'desempenhos.dep',
+                'desempenhos.missao',
+                'desempenhos.local',
+                'desempenhos.reporte',
+                'desempenhos.excel',
+                'desempenhos.powerpoint',
+                'desempenhos.word',
+                'desempenhos.access',
+                'proficiences.nome_da_competencia',
+                'proficiences.nivel_proficiencia',
+                'proficiences.nome_do_cargo',
+                'proficiences.id_da_avaliacao'
+            )
+            ->join('proficiences', 'proficiences.nome_do_cargo', '=', 'desempenhos.cargo')
+            ->where('proficiences.nome_do_cargo', '=', $novo_id)
+            ->get();
+
+        return view('parametrizacao.detalhes_competencias', compact('resultado', 'conjuntoCompetencias', 'resultadoCapturado'));
     }
 
 
@@ -168,12 +207,15 @@ class DesempenhoController extends Controller
                 ->where('id_cargo', $novoId)
                 ->where('id_avaliacao', $id_avaliacao)
                 ->delete();
+            DB::table('proficiences')
+                ->where('id_da_avaliacao', $id_avaliacao)
+                ->delete();
             DB::commit();
-            Toastr::success('Avaliação excluida :)', 'Sucesso');
+            Toastr::success('Atribuição de competências excluida :)', 'Sucesso');
             return redirect()->route('listar/desempenhos');
         } catch (\Exception $e) {
             DB::rollback();
-            Toastr::error('Erro ao excluir avaliação :)', 'Erro');
+            Toastr::error('Erro ao excluir atribuição de competências :)', 'Erro');
             return redirect()->route('listar/desempenhos');
             // echo $e;
         }

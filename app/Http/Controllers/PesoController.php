@@ -17,8 +17,13 @@ class PesoController extends Controller
             ->select('cargos.grupo_funcional')
             ->distinct('cargos.grupo_funcional')
             ->get();
-        $gruposFuncionais = Cargo::whereNotIn('grupo_funcional', Peso::pluck('grupo_funcional'))->get();
-        return view('parametrizacao.pesos', compact('pesosList', 'cargosList', 'gruposFuncionais'));
+
+        $gruposFuncionais = Cargo::whereNotIn('grupo_funcional', Peso::pluck('grupo_funcional'))
+            ->groupBy('grupo_funcional')
+            ->get(['grupo_funcional']);
+
+        $gruposFuncionaisExistem = count($gruposFuncionais) > 0;
+        return view('parametrizacao.pesos', compact('pesosList', 'cargosList', 'gruposFuncionais', 'gruposFuncionaisExistem'));
     }
 
     public function saveRecord(Request $request)

@@ -19,11 +19,7 @@
                 </ol>
             </div>
             <div class="page-rightheader">
-                <div class="btn btn-list">
-                    <a href="{{route('novo/funcionario')}}" class="btn btn-blue btn-sm"><i class="mdi mdi-account-plus mr-1"></i> Criar novo </a>
-                    <a href="{{route('gridView/funcionarios')}}" class="btn btn-secondary btn-sm"><i class="mdi mdi-apps mr-1"></i> Lista grelha </a>
-                    <a href="{{route('listar/funcionarios')}}" class="btn btn-dark btn-sm"><i class="fe fe-align-justify mr-1"></i> Lista Simples </a>
-                </div>
+
             </div>
         </div>
         <!--End Page header-->
@@ -32,8 +28,13 @@
         <div class="row">
             <div class="col-lg-12 col-xl-12 col-md-12 col-sm-12">
                 <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title">Perfil do colaborador</h4>
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <span class="font-weight-bold"><i class="fe fe-database"></i> Perfil do colaborador</span>
+                        <div aria-label="Basic example" class="btn-group" role="group">
+                            <a href="{{route('novo/funcionario')}}" class="btn btn-blue btn-sm"><i class="mdi mdi-account-plus mr-1"></i> Criar novo </a>
+                            <a href="{{route('gridView/funcionarios')}}" class="btn btn-secondary btn-sm"><i class="mdi mdi-apps mr-1"></i> Lista grelha </a>
+                            <a href="{{route('listar/funcionarios')}}" class="btn btn-dark btn-sm"><i class="fe fe-align-justify mr-1"></i> Lista Simples </a>
+                        </div>
                     </div>
                     <div class="card-body">
                         <div class="row">

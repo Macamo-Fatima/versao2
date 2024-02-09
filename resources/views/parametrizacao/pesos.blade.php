@@ -34,8 +34,11 @@
                         <span class="font-weight-bold"><i class="fe fe-database mr-1"></i>Percentuais atribuidos a grupos funcionais </span>
 
                         <div>
+                            @if ($gruposFuncionaisExistem)
                             <a data-effect="effect-scale" data-toggle="modal" href="#modaldemo8" class="btn btn-info btn-sm modal-effect"><i class="fe fe-plus-circle mr-1"></i> Nova atribuição </a>
-
+                            @else
+                            <!-- Exibir algo se todos os grupos já estiverem na tabela de pesos -->
+                            @endif
                         </div>
                     </div>
 
@@ -108,52 +111,17 @@
                                 <label for="descricao" class="form-label">Peso das competências</label>
                                 <select class="form-control custom-select select2" name="peso_competencias" id="peso_competencias" required>
                                     <option value="">Seleciona o peso</option>
-                                    <option value="0">0</option>
-                                    <option value="5">5</option>
-                                    <option value="10">15</option>
-                                    <option value="20">20</option>
-                                    <option value="25">25</option>
-                                    <option value="30">30</option>
-                                    <option value="35">35</option>
-                                    <option value="40">40</option>
-                                    <option value="45">45</option>
-                                    <option value="50">50</option>
-                                    <option value="55">55</option>
-                                    <option value="60">60</option>
-                                    <option value="65">65</option>
-                                    <option value="70">70</option>
-                                    <option value="75">75</option>
-                                    <option value="80">80</option>
-                                    <option value="85">85</option>
-                                    <option value="90">90</option>
-                                    <option value="95">95</option>
-                                    <option value="100">100</option>
+                                    @for ($inicio = 0; $inicio <= 100; $inicio +=5) <option value="{{ $inicio }}">{{ $inicio }}</option>
+                                        @endfor
                                 </select>
                             </div>
                             <div class="col-sm-6">
                                 <label for="descricao" class="form-label">Peso dos objectivos</label>
                                 <select class="form-control custom-select select2" name="peso_objetivos" id="peso_objetivos" required>
                                     <option value="">Seleciona o peso</option>
-                                    <option value="0">0</option>
-                                    <option value="5">5</option>
-                                    <option value="10">15</option>
-                                    <option value="20">20</option>
-                                    <option value="25">25</option>
-                                    <option value="30">30</option>
-                                    <option value="35">35</option>
-                                    <option value="40">40</option>
-                                    <option value="45">45</option>
-                                    <option value="50">50</option>
-                                    <option value="55">55</option>
-                                    <option value="60">60</option>
-                                    <option value="65">65</option>
-                                    <option value="70">70</option>
-                                    <option value="75">75</option>
-                                    <option value="80">80</option>
-                                    <option value="85">85</option>
-                                    <option value="90">90</option>
-                                    <option value="95">95</option>
-                                    <option value="100">100</option>
+                                    @for ($inicio = 0; $inicio <= 100; $inicio +=5) <option value="{{ $inicio }}">{{ $inicio }}</option>
+                                        @endfor
+
                                 </select>
                             </div>
                         </div>
@@ -197,51 +165,17 @@
                             <div class="col-sm-6">
                                 <label for="descricao" class="form-label">Peso das competências</label>
                                 <select class="form-control custom-select select2" name="peso_competencias" id="peso_competencias_edit" required>
-                                    <option value="0">0</option>
-                                    <option value="5">5</option>
-                                    <option value="10">15</option>
-                                    <option value="20">20</option>
-                                    <option value="25">25</option>
-                                    <option value="30">30</option>
-                                    <option value="35">35</option>
-                                    <option value="40">40</option>
-                                    <option value="45">45</option>
-                                    <option value="50">50</option>
-                                    <option value="55">55</option>
-                                    <option value="60">60</option>
-                                    <option value="65">65</option>
-                                    <option value="70">70</option>
-                                    <option value="75">75</option>
-                                    <option value="80">80</option>
-                                    <option value="85">85</option>
-                                    <option value="90">90</option>
-                                    <option value="95">95</option>
-                                    <option value="100">100</option>
+                                    @for ($inicio = 0; $inicio <= 100; $inicio +=5) <option value="{{ $inicio }}">{{ $inicio }}</option>
+                                        @endfor
+
                                 </select>
                             </div>
                             <div class="col-sm-6">
                                 <label for="descricao" class="form-label">Peso dos objectivos</label>
                                 <select class="form-control custom-select select2" name="peso_objetivos" id="peso_objetivos_edit" required>
-                                    <option value="0">0</option>
-                                    <option value="5">5</option>
-                                    <option value="10">15</option>
-                                    <option value="20">20</option>
-                                    <option value="25">25</option>
-                                    <option value="30">30</option>
-                                    <option value="35">35</option>
-                                    <option value="40">40</option>
-                                    <option value="45">45</option>
-                                    <option value="50">50</option>
-                                    <option value="55">55</option>
-                                    <option value="60">60</option>
-                                    <option value="65">65</option>
-                                    <option value="70">70</option>
-                                    <option value="75">75</option>
-                                    <option value="80">80</option>
-                                    <option value="85">85</option>
-                                    <option value="90">90</option>
-                                    <option value="95">95</option>
-                                    <option value="100">100</option>
+                                    @for ($inicio = 0; $inicio <= 100; $inicio +=5) <option value="{{ $inicio }}">{{ $inicio }}</option>
+                                        @endfor
+
                                 </select>
 
                             </div>

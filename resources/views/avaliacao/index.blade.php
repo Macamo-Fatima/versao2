@@ -65,7 +65,7 @@
                                 @endphp
 
                                 @foreach ( $avaliacoesList as $items )
-                                <tr>
+                                <tr style="transition: none !important; transform: none !important;">
                                     <td class="nome_completo">{{ $items->nome_completo}}</td>
                                     <td class="departamento">{{ $items->departamento}}</td>
                                     <td class="funcao">{{ $items->nome_cargo}}</td>

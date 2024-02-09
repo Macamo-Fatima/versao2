@@ -113,6 +113,9 @@ class AtribuiObjetivoController extends Controller
         DB::beginTransaction();
         try {
             AtribuiObjetivo::where('id', $id_avaliacao)->delete();
+            DB::table('objetivo_groups')
+                ->where('id_objetivo', $id_avaliacao)
+                ->delete();
             DB::commit();
             Toastr::success('Atribuicão de objetivo excluida :)', 'Sucesso');
             return redirect()->route('listar/atribuicoes');

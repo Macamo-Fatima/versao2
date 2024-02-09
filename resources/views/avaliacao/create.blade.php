@@ -48,9 +48,9 @@
                         @csrf
                         <div class="form-group row">
                             <div class="col-md-3">
-                                <label class="form-label"><span class="small">Tipo de avaliação</span></label>
+                                <label class="form-label"><span class="small">Tipo de avaliação</span><span class="text-danger"> *</span></label>
                                 <select class="form-control select2" name="tipo_avaliacao" id="tipo_avaliacao" required>
-                                    <option value="">-- Tipo de avaliação --</option>
+                                    <option value=""> Tipo de avaliação</option>
                                     <option value="Semestral">Semestral</option>
                                     <option value="Anual">Anual</option>
                                 </select>
@@ -58,17 +58,17 @@
                             </div>
 
                             <div class="col-md-3">
-                                <label class="form-label" for="data-realizacao"><span class="small">Data da realização</span></label>
+                                <label class="form-label" for="data-realizacao"><span class="small">Data da realização</span><span class="text-danger"> *</span></label>
                                 <input type="datetime-local" class="form-control" name="data_realizacao" id="data_realizacao" placeholder="Seleciona a data" onfocus="
                                                  this.placeholder=''" onblur="this.placeholder='Seleciona a data'" required />
 
                             </div>
                             <div class="col-md-3">
-                                <label class="form-label"><span class="small ">Colaborador</span></label>
+                                <label class="form-label"><span class="small ">Colaborador</span><span class="text-danger"> *</span></label>
                                 <select class="form-control select2" name="funcionario" id="funcao" required>
-                                    <option value="">-- Seleciona o funcionário --</option>
+                                    <option value="">Seleciona o colaborador</option>
                                     @foreach ($funcionariosList as $service)
-                                    <option value="{{$service->id}}" data-price="{{$service->nome_cargo}}">{{$service->nome_completo}}
+                                    <option value="{{$service->id}}" data-price="{{$service->nome_cargo}}" data-price1="{{$service->nome_completo}}" data-price2="{{$service->funcao}}">{{$service->nome_completo}}
                                         @php
                                         $cargo = $service->nome_cargo;
                                         $funcao = $service->funcao;
@@ -83,37 +83,8 @@
                                 <input type="text" id="grupo" name="grupo" class="form-control" value="" readonly>
                             </div>
                         </div>
-
-                        <div class="row">
-                            <div class="col-sm-12">
-
-                                <div class="form-group row">
-                                    <div class="col-md-6">
-                                        <label class="form-label"><span class="small">Competências</span></label>
-                                        <select class="form-control" name="funcionarioSelect" id="funcionarioSelect" required>
-                                            <option value="">-- Seleciona o cargo para busca de competências --</option>
-                                            @foreach($funcionariosListSelect as $cargo)
-                                            <option value="{{$cargo->funcao}}">{{ $cargo->cargo }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <label class="form-label"><span class="small">Objectivos</span></label>
-                                        <select class="form-control" name="funcionarioSelectObjetivos" id="funcionarioSelectObjetivos" required>
-                                            <option value="">-- Seleciona o colaborador para busca de objetivos --</option>
-                                            @foreach($funcionariosNomesListSelect as $funcionario)
-                                            <option value="{{$funcionario->nome_completo}}">{{ $funcionario->nome_completo }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-
-                                </div>
-
-                            </div>
-                        </div>
-
                         <hr>
+                        <label class="form-label"><i class="fe fe-list mr-1"></i><span class="small font-weight-bold">Competências</span><span class="text-danger"> *</span></label>
                         <div class="table-responsive">
                             <table id="competenciasTable" class="table table-hover card-table table-vcenter text-nowrap table-sm">
                                 <tbody id="competenciasBody">
@@ -122,6 +93,7 @@
                             </table>
                         </div>
                         <hr>
+                        <label class="form-label"><i class="fe fe-list mr-1"></i><span class="small font-weight-bold">Objectivos</span><span class="text-danger"> *</span></label>
                         <div class="table-responsive">
                             <table id="objetivosTable" class="table table-hover card-table table-vcenter text-nowrap table-sm">
                                 <tbody id="objetivosBody">
@@ -129,10 +101,7 @@
                                 </tbody>
                             </table>
                         </div>
-
-
                         <hr>
-
                         <div class="form-group row">
                             <div class="col-md-4">
                                 <label class="form-label"><span class="small">Ação de formação</span></label>
@@ -143,16 +112,14 @@
                             <div class="col-md-4">
                                 <label class="form-label" for="data-realizacao"><span class="small">Recomendações do avaliador</span></label>
                                 <textarea class="form-control" cols="2" rows="2" name="recomendacao" id="recomendacao" placeholder="Digite as recomendações do avaliador" onfocus="
-                            this.placeholder=''" onblur="this.placeholder='Digite as recomendações do avaliador'"></textarea>
+                            this.placeholder=''" onblur="this.placeholder='Digite as recomendações do avaliador'" required></textarea>
                             </div>
                             <div class="col-md-4">
-                                <label class="form-label"><span class="small ">Comentários do avaliado</span></label>
+                                <label class="form-label"><span class="small ">Comentários do avaliado</span><span class="text-danger"> *</span></label>
                                 <textarea class="form-control" cols="2" rows="2" name="comentario" id="comentario" placeholder="Digite os comentários do avaliado" onfocus="
                             this.placeholder=''" onblur="this.placeholder='Digite os comentários do avaliado'"></textarea>
                             </div>
                         </div>
-
-
                         <div class="form-group mb-0 mt-4 row justify-content-end">
                             <div class="col-md-7">
                             </div>
@@ -177,18 +144,18 @@
 
 <script>
     // select auto nome e grupo funcional// was not used no more
-    $('#funcionario').on('change', function() {
-        $('#cargo').val($(this).find(':selected').data('grupo_funcional'));
-    });
+    //$('#funcionario').on('change', function() {
+    // $('#cargo').val($(this).find(':selected').data('grupo_funcional'));
+    // });
 
 </script>
 
 {{-- script para auto select de cargo --}}
 <script>
-    $('#funcao').on('change', function() {
-        var price = $(this).children('option:selected').data('price');
-        $('#grupo').val(price);
-    });
+    // $('#funcao').on('change', function() {
+    //     var price = $(this).children('option:selected').data('price');
+    //     $('#grupo').val(price);
+    // });
 
 </script>
 
@@ -230,13 +197,18 @@
 {{-- script para popular tabela de competencias --}}
 <script>
     $(document).ready(function() {
-        $('#funcionarioSelect').change(function() {
+        $('#funcao').change(function() {
             var funcionarioId = $(this).val();
+            var nomeCargo = $(this).find(':selected').data('price');
+            var nomeCompleto = $(this).find(':selected').data('price1');
+            var nomeCargo1 = $(this).find(':selected').data('price2');
+            var price = $(this).children('option:selected').data('price');
+            $('#grupo').val(price);
 
-            if (funcionarioId) {
+            if (nomeCargo1) {
                 $.ajax({
                     type: 'GET'
-                    , url: '/competencias/' + funcionarioId
+                    , url: '/competencias/' + nomeCargo1
                     , success: function(data) {
                         var tableBody = $('#competenciasBody');
                         tableBody.empty(); // Limpar qualquer conteúdo anterior
@@ -247,19 +219,19 @@
                                 // '<td class="small">' + competencia.dep + '</td>' +
                                 '<td class="small">' +
                                 '<div class="form-check form-check-inline mx-4">' +
-                                '<input class="form-check-input form-control mx-1" type="radio" name="avaliacao[' + index + ']" value="1"> 1 ' +
+                                '<input class="form-check-input form-control mx-1" type="radio" name="avaliacao[' + index + ']" value="1" required> 1 ' +
                                 '</div>' +
                                 '<div class="form-check form-check-inline mx-4">' +
-                                '<input class="form-check-input form-control mx-1" type="radio" name="avaliacao[' + index + ']" value="2"> 2 ' +
+                                '<input class="form-check-input form-control mx-1" type="radio" name="avaliacao[' + index + ']" value="2" required> 2 ' +
                                 '</div>' +
                                 '<div class="form-check form-check-inline mx-4">' +
-                                '<input class="form-check-input form-control mx-1" type="radio" name="avaliacao[' + index + ']" value="3"> 3 ' +
+                                '<input class="form-check-input form-control mx-1" type="radio" name="avaliacao[' + index + ']" value="3" required> 3 ' +
                                 '</div>' +
                                 '<div class="form-check form-check-inline mx-4">' +
-                                '<input class="form-check-input form-control mx-1" type="radio" name="avaliacao[' + index + ']" value="4"> 4 ' +
+                                '<input class="form-check-input form-control mx-1" type="radio" name="avaliacao[' + index + ']" value="4" required> 4 ' +
                                 '</div>' +
                                 '<div class="form-check form-check-inline mx-4">' +
-                                '<input class="form-check-input form-control mx-1" type="radio" name="avaliacao[' + index + ']" value="5"> 5 ' +
+                                '<input class="form-check-input form-control mx-1" type="radio" name="avaliacao[' + index + ']" value="5" required> 5 ' +
                                 '</div>' +
                                 '</td>' +
                                 '</tr>';
@@ -270,6 +242,46 @@
             } else {
                 $('#competenciasTable tbody').empty();
             }
+
+
+            if (nomeCompleto) {
+                $.ajax({
+                    type: 'GET'
+                    , url: '/objetivos/' + nomeCompleto
+                    , success: function(data) {
+                        var tableBody = $('#objetivosBody');
+                        tableBody.empty(); // Limpar qualquer conteúdo anterior
+
+                        $.each(data, function(index, objetivo) {
+                            var row = '<tr class="small">' +
+                                '<td class="small">' + objetivo.tipo_objetivo + '</td>' +
+                                // '<td class="small">' + objetivo.dep_funcionario + '</td>' +
+                                '<td>' +
+                                '<div class="form-check form-check-inline mx-4">' +
+                                '<input class="form-check-input mx-1" type="radio" name="objetivo[' + index + ']" value="1" required> 1 ' +
+                                '</div>' +
+                                '<div class="form-check form-check-inline mx-4">' +
+                                '<input class="form-check-input mx-1" type="radio" name="objetivo[' + index + ']" value="2" required> 2 ' +
+                                '</div>' +
+                                '<div class="form-check form-check-inline mx-4">' +
+                                '<input class="form-check-input mx-1" type="radio" name="objetivo[' + index + ']" value="3" required> 3 ' +
+                                '</div>' +
+                                '<div class="form-check form-check-inline mx-4">' +
+                                '<input class="form-check-input mx-1" type="radio" name="objetivo[' + index + ']" value="4" required> 4 ' +
+                                '</div>' +
+                                '<div class="form-check form-check-inline mx-4">' +
+                                '<input class="form-check-input mx-1" type="radio" name="objetivo[' + index + ']" value="5" required> 5 ' +
+                                '</div>' +
+                                '</td>' +
+                                '</tr>';
+                            tableBody.append(row);
+                        });
+                    }
+                });
+            } else {
+                $('#objetivosTable tbody').empty();
+            }
+
         });
     });
 
@@ -346,43 +358,7 @@
     $(document).ready(function() {
         $('#funcionarioSelectObjetivos').change(function() {
             var nomeFuncionario = $(this).val();
-            if (nomeFuncionario) {
-                $.ajax({
-                    type: 'GET'
-                    , url: '/objetivos/' + nomeFuncionario
-                    , success: function(data) {
-                        var tableBody = $('#objetivosBody');
-                        tableBody.empty(); // Limpar qualquer conteúdo anterior
 
-                        $.each(data, function(index, objetivo) {
-                            var row = '<tr class="small">' +
-                                '<td class="small">' + objetivo.tipo_objetivo + '</td>' +
-                                // '<td class="small">' + objetivo.dep_funcionario + '</td>' +
-                                '<td>' +
-                                '<div class="form-check form-check-inline mx-4">' +
-                                '<input class="form-check-input mx-1" type="radio" name="objetivo[' + index + ']" value="1"> 1 ' +
-                                '</div>' +
-                                '<div class="form-check form-check-inline mx-4">' +
-                                '<input class="form-check-input mx-1" type="radio" name="objetivo[' + index + ']" value="2"> 2 ' +
-                                '</div>' +
-                                '<div class="form-check form-check-inline mx-4">' +
-                                '<input class="form-check-input mx-1" type="radio" name="objetivo[' + index + ']" value="3"> 3 ' +
-                                '</div>' +
-                                '<div class="form-check form-check-inline mx-4">' +
-                                '<input class="form-check-input mx-1" type="radio" name="objetivo[' + index + ']" value="4"> 4 ' +
-                                '</div>' +
-                                '<div class="form-check form-check-inline mx-4">' +
-                                '<input class="form-check-input mx-1" type="radio" name="objetivo[' + index + ']" value="5"> 5 ' +
-                                '</div>' +
-                                '</td>' +
-                                '</tr>';
-                            tableBody.append(row);
-                        });
-                    }
-                });
-            } else {
-                $('#objetivosTable tbody').empty();
-            }
         });
     });
 

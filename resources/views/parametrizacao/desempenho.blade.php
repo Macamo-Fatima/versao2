@@ -53,7 +53,6 @@
                                     <th class="wd-15p border-bottom-0">missão</th>
                                     <th class="wd-15p border-bottom-0">Local de trabalho</th>
                                     <th class="wd-15p border-bottom-0">Reporte hierárquico</th>
-                                    <th class="wd-15p border-bottom-0">Nível de proeficiência</th>
                                     <th class="wd-15p border-bottom-0">MS Word</th>
                                     <th class="wd-15p border-bottom-0">MS Excel</th>
                                     <th class="wd-15p border-bottom-0">MS Access</th>
@@ -70,7 +69,6 @@
                                     <td class="missao">{{$items->missao}}</td>
                                     <td class="local">{{$items->local}}</td>
                                     <td class="reporte">{{$items->reporte}}</td>
-                                    <td class="proeficiencia">{{$items->proficiencia}}</td>
                                     <td class="word">{{$items->word}}</td>
                                     <td class="excel">{{$items->excel}}</td>
                                     <td class="access">{{$items->access}}</td>
@@ -79,7 +77,8 @@
                                         <div aria-label="Basic example" class="btn-group float-right" role="group">
                                             <a href="{{ url('form/desempenho/ver',['novo' => $items->novoId])}}" class="btn btn-info btn-sm"> <i class="zmdi zmdi-eye"></i>&nbsp;Ver</a>
                                             {{-- <a href="{{ url('form/desempenho/edit',['id_desempenho' => $items->id])}}" class="btn btn-primary btn-sm"> <i class="zmdi zmdi-edit"></i>&nbsp;Editar </a> --}}
-                                            <a href="{{ url('form/desempenho/excluir',['id_desempenho' => $items->id, 'novoId' => $items->novoId])}}" class="btn btn-secondary btn-sm" onclick="return confirm('Deseja excluir esta avaliação?')"><i class="zmdi zmdi-delete"></i>&nbsp;Excluir</a>
+                                            <a href="{{ url('form/desempenho/excluir',['id_desempenho' => $items->id, 'novoId' => $items->novoId])}}" class="btn btn-secondary btn-sm" onclick="return confirm('Deseja excluir esta atribuição de competências?')"><i class="zmdi zmdi-delete"></i>&nbsp;Excluir</a>
+
                                         </div>
 
                                     </td>
@@ -107,7 +106,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="{{route('form/desempenho/save')}}" method="POST" id="validate">
+            <form action="{{ route('form/desempenho/save') }}" method="POST" id="validate">
                 @csrf
                 <div class="modal-body">
                     <div class="row">
@@ -185,24 +184,23 @@
 
                     </div>
 
+
                     <div class="row">
                         <div class="col-sm-8">
                             <div class="form-group">
-                                <label for="novacompetencia" class="form-label"> <span class="small">Competências</span> </label>
-                                <select name="competencias[]" id="competencias" multiple="multiple" onchange="console.log($(this).children(':selected').length)" class="select1">
+                                <label for="novacompetencia" class="form-label"><span class="small">Competências</span></label>
+                                <select name="competencias[]" id="competencias" multiple="multiple" onchange="addProficienciaFields()" class="select1">
                                     <option value="" disabled>Seleciona competências</option>
                                     @foreach ($competenciasList as $competencia)
-                                    <option value="{{$competencia->nome_competencia}}">{{$competencia->nome_competencia}}</option>
+                                    <option value="{{ $competencia->nome_competencia }}">{{ $competencia->nome_competencia }}</option>
                                     @endforeach
                                 </select>
                             </div>
                         </div>
-
-
                         <div class="col-sm-4">
                             <div class="form-group">
-                                <label class="form-label" for="proficiencia"><span class="small">Nível de proeficiência</span> <span class="text-danger">*</span></label>
-                                <select class="form-control custom-select select2" name="proeficiencia" id="proficiencia" required>
+                                <label class="form-label" for="proficiencia"><span class="small">Nível de proficiência</span> <span class="text-danger">*</span></label>
+                                <select class="form-control custom-select select2" name="proeficiencia" id="proficiencia" disabled>
                                     <option value="">Seleciona nível de proficiência</option>
                                     <option value="1">Um</option>
                                     <option value="2">Dois</option>
@@ -212,10 +210,10 @@
                                 </select>
                             </div>
                         </div>
-
                     </div>
-                    <hr><span class="small font-weight-bold">Competências Informáticas</span>
-
+                    <div id="proficiencia_fields"></div>
+                    <hr>
+                    <span class="small font-weight-bold">Competências Informáticas</span>
                     <div class="row">
                         <div class="col-sm-3">
                             <div class="form-group">
@@ -269,17 +267,16 @@
 
                     </div>
 
-
-
-
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-indigo btn-sm" type="submit"> <i class="fe fe-save"></i> Salvar</button>
+                    <button class="btn btn-indigo btn-sm" type="submit"><i class="fe fe-save"></i> Salvar</button>
                     <button class="btn btn-secondary btn-sm" data-dismiss="modal" type="button">
                         <i class="fe fe-x"></i> Fechar
                     </button>
                 </div>
             </form>
+
+
 
         </div>
     </div>
@@ -289,6 +286,37 @@
 
 
 @section('scripts')
+
+
+<script>
+    function addProficienciaFields() {
+        $('#proficiencia_fields').empty(); // Limpa os campos existentes antes de adicionar novos
+
+        $('#competencias option:selected').each(function() {
+            var competencia = $(this).val();
+            var html = '<div class="row">';
+            html += '<div class="col-sm-8">';
+            html += '<label class="form-label">' + competencia + '</label>';
+            html += '</div>';
+            html += '<div class="col-sm-4">';
+            html += '<div class="form-group">';
+            html += '<select class="form-control form-select" name="proficiencia_' + competencia + '" required>';
+            html += '<option value="">Seleciona o nível</option>';
+            html += '<option value="1">Um</option>';
+            html += '<option value="2">Dois</option>';
+            html += '<option value="3">Três</option>';
+            html += '<option value="4">Quatro</option>';
+            html += '<option value="5">Cinco</option>';
+            html += '</select>';
+            html += '</div>';
+            html += '</div>';
+            html += '</div>';
+            $('#proficiencia_fields').append(html);
+        });
+    }
+
+</script>
+
 <!-- {{-- update js --}} -->
 <script>
     $(document).on('click', '.competenciaUpdate', function() {

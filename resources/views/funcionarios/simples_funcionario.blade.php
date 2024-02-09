@@ -385,10 +385,10 @@
                                                     <div>
                                                         <select class="form-control custom-select select2" name="reporte" id="reporte">
                                                             <option value="{{$dados[0]->reporte}}">{{$dados[0]->reporte}}</option>
-                                                            <option value="Reporte 1">Reporte 1</option>
-                                                            <option value="Reporte 2">Reporte 2</option>
-                                                            <option value="Reporte 3">reporte 3</option>
-                                                            <option value="Reporte 4">Reporte 4</option>
+                                                               @foreach ($colaboradoresNomesList as $colaborador)
+                                                               <option value="{{$colaborador->nome_completo}}">{{$colaborador->nome_completo}}</option>
+                                                               @endforeach
+
                                                         </select>
                                                     </div>
                                                 </div>

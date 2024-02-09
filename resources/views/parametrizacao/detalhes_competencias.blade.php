@@ -46,34 +46,33 @@
 
                             <tbody>
                                 <tr class="small">
-                                    <td>Título da função</td>
+                                    <td class="font-weight-bold">Título da função</td>
                                     <td>{{$resultado[0]->nome_cargo}}</td>
                                 </tr>
-
                                 <tr class="small">
-                                    <td>Grupo funcional</td>
+                                    <td class="font-weight-bold">Grupo funcional</td>
                                     <td>{{ $resultado[0]->grupo_funcional}}</td>
                                 </tr>
                                 <tr class="small">
-                                    <td>Departamento / Área de integração</td>
+                                    <td class="font-weight-bold">Departamento / Área de integração</td>
                                     <td>{{ $resultado[0]->dep}}</td>
                                 </tr>
                                 <tr class="small">
-                                    <td>Local de trabalho</td>
+                                    <td class="font-weight-bold">Local de trabalho</td>
                                     <td>{{ $resultado[0]->local}}</td>
                                 </tr>
                                 <tr class="small">
-                                    <td>Reporte hierárquico</td>
+                                    <td class="font-weight-bold">Reporte hierárquico</td>
                                     <td>{{ $resultado[0]->reporte}}</td>
                                 </tr>
-
-
                                 <tr class="small">
                                     <td class="fw-bolder fs-12"><br></td>
                                     <td class="fw-bolder fs-12"><br></td>
-
                                 </tr>
-
+                                <tr>
+                                    <td class="font-weight-bold">Competências informáticas</td>
+                                    <td class="font-weight-bold">Nível de compreensão</td>
+                                </tr>
                                 <tr class="small">
                                     <td>Excel</td>
                                     <td>{{ $resultado[0]->excel}}</td>
@@ -95,16 +94,22 @@
                                     <td class="fw-bolder fs-12"><br></td>
                                     <td class="fw-bolder fs-12"><br></td>
                                 </tr>
+                                <tr>
+                                    <td class="font-weight-bold">Lista de competências</td>
+                                    <td class="font-weight-bold">Nível de proficiência</td>
+                                </tr>
+                                @foreach ($resultadoCapturado as $items)
                                 <tr class="small">
-                                    <td>Lista de competências</td>
                                     <td>
-                                        @foreach ($conjuntoCompetencias as $items)
-                                        <ul>
-                                            <li> {{$items->tipo_competencia}}</li>
-                                        </ul>
-                                        @endforeach
+                                        {{$items->nome_da_competencia}}
+                                    </td>
+                                    <td>
+                                        {{$items->nivel_proficiencia}}
                                     </td>
                                 </tr>
+                                @endforeach
+
+
                             </tbody>
                         </table>
                     </div>

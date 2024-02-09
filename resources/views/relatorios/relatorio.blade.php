@@ -191,7 +191,7 @@
     ->where('grupo_funcional', $dados[0]->grupo_funcional)
     ->value('peso_objetivos');
 
-    $pontuacao = round(($mediaCompetencias) * (50 / 100), 0) + round(($mediaObjetivos) * (50 / 100), 0);
+    $pontuacao = round(($mediaCompetencias) * ( $pesoCompetencias / 100), 0) + round(($mediaObjetivos) * ($pesoObjetivos / 100), 0);
     }
     if ($dados[0]->grupo_funcional == 'Quadros de Apoio' || $dados[0]->grupo_funcional == 'Quadros de apoio' || $dados[0]->grupo_funcional == 'quadros de apoio') {
     $pesoCompetencias = DB::table('pesos')
@@ -291,35 +291,35 @@
         <?php
                   if ($pontuacao >= 0 && $pontuacao < 2) { ?>
         <div class="col-xs-3 text-capitalize" style="padding: 0.5rem; margin:2px; font-size: 10px">
-            A
+            A - Baixo
         </div>
         <?php } ?>
 
         <?php
                   if ($pontuacao >= 2 && $pontuacao < 3) { ?>
         <div class="col-xs-3 text-capitalize" style="padding: 0.5rem; margin:2px; font-size: 10px">
-            B
+            B - Médio-Baixo
         </div>
 
         <?php } ?>
         <?php
                   if ($pontuacao >= 3 && $pontuacao < 4) { ?>
         <div class="col-xs-3 text-capitalize" style="padding: 0.5rem; margin:2px; font-size: 10px">
-            C
+            C - Médio
         </div>
         <?php } ?>
 
         <?php
                   if ($pontuacao >= 4 && $pontuacao < 5) { ?>
         <div class="col-xs-3 text-capitalize" style="padding: 0.5rem; margin:2px; font-size: 10px">
-            D
+            D - Médio-Alto
         </div>
         <?php } ?>
 
         <?php
-                  if ($pontuacao == 5) { ?>
+                  if ($pontuacao >= 5 && $pontuacao < 7 ) { ?>
         <div class="col-xs-3 text-capitalize" style="padding: 0.5rem; margin:2px; font-size: 10px">
-            E
+            E - Elevado ou Alto
         </div>
         <?php } ?>
 
